@@ -16,7 +16,7 @@ CREATE TABLE Users (
 );
 
 CREATE TABLE Clients (
-	client_id VARCHAR(15)
+	client_id VARCHAR(15) UNIQUE NOT NULL
 	,client_address VARCHAR(150)
 	,FOREIGN KEY (client_id) REFERENCES Users(user_id)
 );
@@ -29,10 +29,27 @@ CREATE TABLE Categories (
 );
 
 CREATE TABLE Products (
-	product_id VARCHAR(50) NOT NULL
+	product_id VARCHAR(50) PRIMARY KEY NOT NULL
 	,product_name VARCHAR(150)NOT NULL
 	,product_quantity INTEGER NOT NULL
 	,product_price FLOAT NOT NULL
 	,product_category INTEGER
 	,FOREIGN KEY (product_category) REFERENCES Categories(category_id)
+);
+
+CREATE TABLE client_buy_product(
+	client_id VARCHAR(15) NOT NULL
+	,product_id VARCHAR(50) NOT NULL
+	,quantity INTEGER NOT NULL
+	,created TIMESTAMP NOT NULL
+	,updated TIMESTAMP NOT NULL
+	,FOREIGN KEY (client_id) REFERENCES Clients(client_id)
+	,FOREIGN KEY (product_id) REFERENCES Products(product_id)
+);
+
+CREATE TABLE product_has_category(
+	product_id VARCHAR(50) NOT NULL
+	,category_id INTEGER NOT NULL
+	,FOREIGN KEY (product_id) REFERENCES Products(product_id)
+	,FOREIGN KEY (category_id) REFERENCES Categories(category_id)
 );
