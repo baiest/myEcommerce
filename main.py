@@ -1,14 +1,11 @@
 from flask import Flask, jsonify, Blueprint
-from db import DataBase
+from flask_cors import CORS
 from routes.Api import api
 
 
 app = Flask(__name__)
+CORS(app)
 app.register_blueprint(api)
-
-@app.route('/')
-def hello():
-    return jsonify(data=DataBase()._query("SELECT * FROM clients"))
 
 if __name__ == '__main__':
     app.run(debug=True)

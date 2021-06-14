@@ -3,6 +3,8 @@ users
 ,clients
 ,categories
 ,products
+,client_buy_product
+,product_has_category
 CASCADE;
 
 CREATE TABLE Users (
@@ -34,6 +36,8 @@ CREATE TABLE Products (
 	,product_quantity INTEGER NOT NULL
 	,product_price FLOAT NOT NULL
 	,product_category INTEGER
+	,created TIMESTAMP NOT NULL
+	,updated TIMESTAMP NOT NULL
 	,FOREIGN KEY (product_category) REFERENCES Categories(category_id)
 );
 
