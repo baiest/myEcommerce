@@ -38,6 +38,21 @@ INSERT INTO Categories(
 	'Ropa'
 	,NOW()
 	,NOW()
+),
+(
+	'Zapatos'
+	,NOW()
+	,NOW()
+),
+(
+	'Jolleria'
+	,NOW()
+	,NOW()
+),
+(
+	'Perfumes'
+	,NOW()
+	,NOW()
 );
 
 INSERT INTO Products(
@@ -156,4 +171,4 @@ VALUES (
 	,1
 );
 
-SELECT * FROM product_has_category GROUP BY category_id
+--SELECT * FROM product_has_category GROUP BY category_id

@@ -1,7 +1,18 @@
 from flask import Blueprint
-from .Users.Users import users
-import os
+from . import (
+    Users,
+    Products,
+    Categories
+)
 
 api = Blueprint('api', __name__, url_prefix='/api')
 
-api.register_blueprint(users)
+""" Registers new routes """
+routes = [
+    Users.users,
+    Products.products,
+    Categories.categories
+]
+
+for route in routes:
+    api.register_blueprint(route)
