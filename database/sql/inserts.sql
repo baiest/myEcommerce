@@ -113,7 +113,7 @@ INSERT INTO Products(
 	,'camiseta amarilla'
 	,1
 	,32.32
-	,1
+	,2
 	,NOW()
 	,NOW()
 ),
@@ -122,7 +122,7 @@ INSERT INTO Products(
 	,'camiseta azul'
 	,1
 	,32.32
-	,1
+	,2
 	,NOW()
 	,NOW()
 ),
@@ -131,7 +131,7 @@ INSERT INTO Products(
 	,'camiseta verde con correa roja en un lado del pantalon'
 	,1
 	,32.32
-	,1
+	,2
 	,NOW()
 	,NOW()
 );
