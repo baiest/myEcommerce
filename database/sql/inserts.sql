@@ -56,11 +56,10 @@ INSERT INTO Categories(
 );
 
 INSERT INTO Products(
-	product_id,
-	product_name,
-	product_quantity,
-	product_price,
-	product_category
+	product_id
+	,product_name
+	,product_quantity
+	,product_price
 	,created
 	,updated
 ) VALUES (
@@ -68,7 +67,6 @@ INSERT INTO Products(
 	,'camiseta roja'
 	,1
 	,32.32
-	,1
 	,NOW()
 	,NOW()
 ),
@@ -77,7 +75,6 @@ INSERT INTO Products(
 	,'camiseta amarilla'
 	,1
 	,32.32
-	,1
 	,NOW()
 	,NOW()
 ),
@@ -86,7 +83,6 @@ INSERT INTO Products(
 	,'camiseta azul'
 	,1
 	,32.32
-	,1
 	,NOW()
 	,NOW()
 ),
@@ -95,7 +91,6 @@ INSERT INTO Products(
 	,'camiseta verde'
 	,1
 	,32.32
-	,1
 	,NOW()
 	,NOW()
 ),
@@ -104,7 +99,6 @@ INSERT INTO Products(
 	,'camiseta roja'
 	,1
 	,32.32
-	,1
 	,NOW()
 	,NOW()
 ),
@@ -113,7 +107,6 @@ INSERT INTO Products(
 	,'camiseta amarilla'
 	,1
 	,32.32
-	,2
 	,NOW()
 	,NOW()
 ),
@@ -122,7 +115,6 @@ INSERT INTO Products(
 	,'camiseta azul'
 	,1
 	,32.32
-	,2
 	,NOW()
 	,NOW()
 ),
@@ -131,7 +123,6 @@ INSERT INTO Products(
 	,'camiseta verde con correa roja en un lado del pantalon'
 	,1
 	,32.32
-	,2
 	,NOW()
 	,NOW()
 );
@@ -144,7 +135,7 @@ VALUES (
 ),
 (
 	'PRODUCTO_2'
-	,1
+	,2
 ),
 (
 	'PRODUCTO_3'
@@ -152,7 +143,7 @@ VALUES (
 ),
 (
 	'PRODUCTO_4'
-	,1
+	,2
 ),
 (
 	'PRODUCTO_5'
@@ -160,7 +151,7 @@ VALUES (
 ),
 (
 	'PRODUCTO_6'
-	,1
+	,2
 ),
 (
 	'PRODUCTO_7'
@@ -172,3 +163,4 @@ VALUES (
 );
 
 --SELECT * FROM product_has_category GROUP BY category_id
+ SELECT * FROM products WHERE product_id = 'PRODUCTO_1'
