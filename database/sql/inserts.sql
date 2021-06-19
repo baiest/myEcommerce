@@ -162,5 +162,24 @@ VALUES (
 	,1
 );
 
+INSERT INTO product_image VALUES 
+('PRODUCTO_1', '1.jpg')
+,('PRODUCTO_1', '2.jpg')
+,('PRODUCTO_1', '4.webp')
+,('PRODUCTO_1', 'nevera.jpg')
+,('PRODUCTO_2', '1.jpg')
+,('PRODUCTO_3', '1.jpg')
+,('PRODUCTO_4', '1.jpg')
+,('PRODUCTO_4', 'zapato2.jpg')
+
 --SELECT * FROM product_has_category GROUP BY category_id
- SELECT * FROM products WHERE product_id = 'PRODUCTO_1'
+ --SELECT * FROM products WHERE product_id = 'PRODUCTO_1'
+
+-- SELECT p.product_id, product_name, product_quantity, product_price, array_agg(p_i.product_image) AS images FROM products AS p 
+-- INNER JOIN product_image AS p_i ON p.product_id = p_i.product_id 
+-- WHERE p.product_id = 'PRODUCTO_1' 
+-- GROUP BY p.product_id 
+--  SELECT p.product_id,product_name,product_quantity,product_price,array_agg(p_i.product_image) FROM products AS p 
+--         INNER JOIN product_image AS p_i ON p.product_id = p_i.product_id
+--         WHERE p.product_id = 'PRODUCTO_1'
+
