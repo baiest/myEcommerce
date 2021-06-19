@@ -19,7 +19,7 @@ def get_products_category(id):
         result = select(table='product_has_category AS pro_cat', where=f'category_id = {id}', join={'products': ['pro_cat.product_id', 'products.product_id']})
         return jsonify(result)
     except Exception as error:
-        return jsonify({'error':error.message}), 400
+        return jsonify({'error': str(error)}), 400
 
 @products.route('/<string:id>', methods=['GET'])
 def get_product_by_id(id):

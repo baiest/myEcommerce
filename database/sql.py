@@ -21,7 +21,6 @@ def select( table, columns=[], where=None, join={'empty': ['','']}, group_by=Non
         {f'WHERE {where}' if where != None else ''}
         {f'GROUP BY {group_by}' if group_by != None else ''}
         """
-        print(query)
         result = DataBase._query(query)
         return Exception('No hay datos') if len(result) == 0 else result
     except errors.UndefinedTable as error:
