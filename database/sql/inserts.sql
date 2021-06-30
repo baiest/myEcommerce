@@ -182,4 +182,3 @@ INSERT INTO product_image VALUES
 --  SELECT p.product_id,product_name,product_quantity,product_price,array_agg(p_i.product_image) FROM products AS p 
 --         INNER JOIN product_image AS p_i ON p.product_id = p_i.product_id
 --         WHERE p.product_id = 'PRODUCTO_1'
-

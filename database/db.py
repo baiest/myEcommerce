@@ -24,7 +24,10 @@ class DataBase:
             with pg.connect(**self._config) as connection:
                 cursor = connection.cursor(cursor_factory = pg.extras.RealDictCursor) 
                 cursor.execute(query)
-                result = cursor.fetchall()
-                return result
+                if "INSERT" in query:
+                    return "Agregado exitosamente"
+                else:
+                    result = cursor.fetchall()
+                    return result
         except pg.OperationalError:
             return 'Hay algo malo en la configuración'

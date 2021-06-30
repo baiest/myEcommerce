@@ -3,9 +3,11 @@ from flask import (
     ,jsonify
     ,send_from_directory
     ,current_app
+    ,request
     )
 from database.sql import *
 import os.path
+import datetime
 
 products = Blueprint('products', __name__, url_prefix='/products')
 
@@ -60,3 +62,12 @@ def get_product_name_image(id, name_image):
         return send_from_directory(path, name_image)
     except Exception as error:
         return jsonify({'error':str(error)}), 400
+
+@products.route('/new', methods=['GET', 'POST'])
+def new_product():
+    data = request.json
+    try:
+        result = insert('products', data)
+        return jsonify(result)
+    except Exception as error:
+        return jsonify({'error':str(result)}), 205
