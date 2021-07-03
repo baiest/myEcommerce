@@ -1,6 +1,21 @@
 from .db import DataBase
 from psycopg2 import errors 
 
+def _excecute_query(query):
+    try:
+        result = DataBase._query(query)
+        return Exception('No hay datos') if len(result) == 0 else result
+    except errors.UndefinedTable as error:
+        return Exception(f'La tabla no existe {error}')
+    except errors.UndefinedColumn as error:
+        return Exception(f'Una columna no existe {error}')
+    except errors.InvalidTextRepresentation as error:
+        return Exception('Error en un tipo de dato')
+    except errors.UniqueViolation as error:
+        return Exception('Este elemento ya existe')
+    except Exception as error:
+        print(type(error))
+
 def select(table, columns=[], where=None, join={'empty': ['','']}, group_by=None):
     """
     Whitout param @columns get all columns or [column_1, column_2, column_3 ... column_n]
@@ -25,37 +40,17 @@ def select(table, columns=[], where=None, join={'empty': ['','']}, group_by=None
     {f'WHERE {where}' if where != None else ''}
     {f'GROUP BY {group_by}' if group_by != None else ''}
     """
-    try:
-        result = DataBase._query(query)
-        return Exception('No hay datos') if len(result) == 0 else result
-    except errors.UndefinedTable as error:
-        return Exception(f'La tabla no existe {error}')
-    except errors.UndefinedColumn as error:
-        return Exception(f'Una columna no existe {error}')
-    except Exception as error:
-        print(error)
+    return _excecute_query(query)
 
 def insert(table, data):
     name_columns = ','.join(data.keys())
     name_values = ''
     for col in data.values():
-        if not (type(col) is str):
-            print(type(col))
+        if (type(col) != str):
             name_values += f"{str(col)},"
         else:
             name_values += f"'{col}',"
     query = f"""
     INSERT INTO {table} ({name_columns}) VALUES ({name_values[:-1]})
     """
-    print(query)
-    try:
-        result = DataBase._query(query)
-        return Exception('No hay datos') if len(result) == 0 else result
-    except errors.UndefinedTable as error:
-        return Exception(f'La tabla no existe {error}')
-    except errors.UndefinedColumn as error:
-        return Exception(f'Una columna no existe {error}')
-    except errors.UniqueViolation as error:
-        return Exception(f'Ya existe un elemento con este identificador')
-    except Exception as error:
-        print(error)
+    return _excecute_query(query)
