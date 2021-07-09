@@ -47,7 +47,7 @@ def get_product_by_id(id):
             raise Exception(result)
         return jsonify(result[0])
     except Exception as error:
-        return jsonify({'error': str(error)}), 205
+        return jsonify({'error': str(error)}), 305
 
 @products.route('/img/<string:id>', methods=['GET'])
 def get_product_image(id):
@@ -94,7 +94,7 @@ def new_product():
         
         return jsonify(result)
     except Exception as error:
-        return jsonify({'error': str(error)}), 205
+        return jsonify({'error': str(error)}), 305
 
 @products.route('/new/image/<string:id>', methods=['GET', 'POST'])
 def new_image_product(id):
@@ -115,4 +115,4 @@ def new_image_product(id):
         return jsonify(result)
     except Exception as error:
         print(error)
-        return jsonify({'error': str(error)}), 205
+        return jsonify({'error': str(error)}), 305
