@@ -4,7 +4,7 @@ from psycopg2 import errors
 def _excecute_query(query):
     try:
         result = DataBase._query(query)
-        return Exception('No hay datos') if len(result) == 0 else result
+        return result
     except errors.UndefinedTable as error:
         return Exception(f'La tabla no existe {error}')
     except errors.UndefinedColumn as error:
@@ -13,10 +13,12 @@ def _excecute_query(query):
         return Exception('Error en un tipo de dato')
     except errors.UniqueViolation as error:
         return Exception('Este elemento ya existe')
+    except errors.SyntaxError as error:
+        return Exception(f'Hay algo mal escrito, {error}')
     except Exception as error:
         print(type(error))
 
-def select(table, columns=[], where=None, join={'empty': ['','']}, group_by=None):
+def select(table, columns=[], where=None, join={'empty': ['','']}, order_by=None,group_by=None):
     """
     Whitout param @columns get all columns or [column_1, column_2, column_3 ... column_n]
     param @where is the condition
@@ -38,8 +40,10 @@ def select(table, columns=[], where=None, join={'empty': ['','']}, group_by=None
     SELECT {name_columns} FROM {table} 
     {name_join} 
     {f'WHERE {where}' if where != None else ''}
+    {f'ORDER BY {order_by} DESC' if order_by != None else ''}
     {f'GROUP BY {group_by}' if group_by != None else ''}
     """
+    print(query)
     return _excecute_query(query)
 
 def insert(table, data):
@@ -53,4 +57,19 @@ def insert(table, data):
     query = f"""
     INSERT INTO {table} ({name_columns}) VALUES ({name_values[:-1]})
     """
+    return _excecute_query(query)
+
+def update(table, data, where):
+    name_values = ''
+    for col in data.keys():
+        if (type(col) != str):
+            name_values += f"\n{col} = {str(data[col])},"
+        else:
+            name_values += f"\n{col} = '{data[col]}',"
+    query = f"""
+    UPDATE {table}
+    SET {name_values[:-1]}
+    WHERE {where}
+    """
+    print(query)
     return _excecute_query(query)

@@ -26,6 +26,8 @@ class DataBase:
                 cursor.execute(query)
                 if "INSERT" in query:
                     return "Agregado exitosamente"
+                elif "UPDATE" in query:
+                    return "Actualizado"
                 else:
                     result = cursor.fetchall()
                     return result

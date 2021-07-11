@@ -5,7 +5,7 @@ import os
 
 
 app = Flask(__name__, static_folder='dashboard')
-CORS(app, resources={r"/api/*": {"origins": "*"}})
+CORS(app, resources={"/api/*": {"origins": "*", }})
 
 app.config['IMAGES'] = os.path.join(os.getcwd(), 'images')
 app.register_blueprint(api)

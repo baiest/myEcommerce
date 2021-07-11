@@ -11,14 +11,32 @@ import datetime
 
 products = Blueprint('products', __name__, url_prefix='/products')
 
-@products.route('/', methods=['GET'])
+@products.route('/query', methods=['GET', 'POST'])
 def get_products():
-    return jsonify(select(table='products'))
+    try:
+        where = None
+        try:
+            data = request.json
+            id_upper = data['query'].upper()
+            id_lower = data['query'].lower()
+            where = f"product_id LIKE '%{id_upper}%' OR product_id LIKE '%{id_lower}%'"
+            print(where)
+        except Exception as error:
+            print(str(error))
+        result = select(table='products',  order_by='created', where=where)
+        if (type(result) is Exception):
+                raise Exception(result)
+        return jsonify(result)
+    except Exception as error:
+        return jsonify({'error': str(error)}), 305
 
 @products.route('/category/<int:id>', methods=['GET'])
 def get_products_category(id):
     try:
-        result = select(table='product_has_category AS pro_cat', where=f"category_id = {id}", join={'products': ['pro_cat.product_id', 'products.product_id']})
+        result = select(
+            table='product_has_category AS pro_cat', 
+            where=f"category_id = {id}", 
+            join={'products': ['pro_cat.product_id', 'products.product_id']})
         return jsonify(result)
     except Exception as error:
         return jsonify({'error': str(error)}), 400
@@ -114,7 +132,7 @@ def new_product():
 def new_image_product(id):
     try:
         file = request.files['photo']
-        path= os.path.join(current_app.config['IMAGES'],'products', id)
+        path = os.path.join(current_app.config['IMAGES'],'products', id)
         if not os.path.isdir(path):
             os.mkdir(path)
         file.save("/".join([path, file.filename]))
@@ -128,5 +146,35 @@ def new_image_product(id):
             raise Exception(result)
         return jsonify(result)
     except Exception as error:
-        print(error)
+        print("Paso este error", type(error))
+        return jsonify({'error': str(error)}), 305
+
+@products.route('/update/<string:id>', methods=['GET', 'PUT'])
+def update_product(id):
+    try:
+        data = request.json
+        print(data)
+        result = update('products', {
+            'product_id': data['product_id'],
+            'product_name': data['product_name'],
+            'product_quantity': data['product_quantity'],
+            'product_price': data['product_price'],
+            'updated': 'NOW()'
+        },
+        f"product_id = '{data['product_id']}'")
+        if (type(result) is Exception):
+            raise Exception(result)
+        return jsonify(result)
+    except Exception as error:
+        print("Paso este error", type(error))
+        return jsonify({'error': str(error)}), 305
+
+@products.route('/update/image/<string:id>', methods=['GET', 'PUT'])
+def update_product_image(id):
+    try:
+        files = request.files['photo']
+        print(files)
+        return jsonify(files)
+    except Exception as error:
+        print("Paso este error", type(error))
         return jsonify({'error': str(error)}), 305
