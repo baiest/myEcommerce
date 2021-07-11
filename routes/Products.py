@@ -18,10 +18,21 @@ def get_products():
 @products.route('/category/<int:id>', methods=['GET'])
 def get_products_category(id):
     try:
-        result = select(table='product_has_category AS pro_cat', where=f'category_id = {id}', join={'products': ['pro_cat.product_id', 'products.product_id']})
+        result = select(table='product_has_category AS pro_cat', where=f"category_id = {id}", join={'products': ['pro_cat.product_id', 'products.product_id']})
         return jsonify(result)
     except Exception as error:
         return jsonify({'error': str(error)}), 400
+
+@products.route('/<string:id>/categories', methods=['GET'])
+def get_categories_of_product(id):
+    try:
+        result = select(table='product_has_category AS pro_cat', columns=['array_agg(category_id) AS categories'], where=f"product_id = '{id}'")
+        if (type(result) is Exception):
+            raise Exception(result)
+
+        return jsonify(result[0])
+    except Exception as error:
+        return jsonify({'error': str(error)}), 305
 
 @products.route('/<string:id>', methods=['GET'])
 def get_product_by_id(id):
@@ -30,11 +41,13 @@ def get_product_by_id(id):
         'product_name', 
         'product_quantity', 
         'product_price',
-        'array_agg(p_i.product_image) AS images'
+        'array_agg(p_i.product_image) AS images',
+        'array_agg(p_c.category_id) AS categories'
     ]
 
     join = {
-        'product_image AS p_i': ['p.product_id', 'p_i.product_id']
+        'product_image AS p_i': ['p.product_id', 'p_i.product_id'],
+        'product_has_category AS p_c': ['p.product_id', 'p_c.product_id']
     }
     try:
         result = select(
@@ -45,6 +58,7 @@ def get_product_by_id(id):
 
         if (type(result) is Exception):
             raise Exception(result)
+
         return jsonify(result[0])
     except Exception as error:
         return jsonify({'error': str(error)}), 305

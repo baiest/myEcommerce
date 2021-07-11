@@ -32,7 +32,7 @@ def select(table, columns=[], where=None, join={'empty': ['','']}, group_by=None
 
     if 'empty' not in join:
         for tabla_join in join.keys():
-            name_join += f'INNER JOIN {tabla_join} ON {join[tabla_join][0]} = {join[tabla_join][1]}'
+            name_join += f'LEFT JOIN {tabla_join} ON {join[tabla_join][0]} = {join[tabla_join][1]}\n'
     
     query = f"""
     SELECT {name_columns} FROM {table} 
