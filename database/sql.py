@@ -43,7 +43,6 @@ def select(table, columns=[], where=None, join={'empty': ['','']}, order_by=None
     {f'ORDER BY {order_by} DESC' if order_by != None else ''}
     {f'GROUP BY {group_by}' if group_by != None else ''}
     """
-    print(query)
     return _excecute_query(query)
 
 def insert(table, data):

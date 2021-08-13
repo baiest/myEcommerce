@@ -3,9 +3,15 @@ from flask_cors import CORS
 from routes.Api import api
 import os
 
+servers = [
+    "http://localhost:3001",
+    "http://localhost:3000",
+    "http://192.168.1.53:3001",
+    "http://192.168.1.53:3000"
+]
 
 app = Flask(__name__, static_folder='dashboard')
-CORS(app, resources={"/api/*": {"origins": "*", }})
+CORS(app, resources={"/api/*": {"origins": servers, "Access-Control-Allow-Methods": '*'}})
 
 app.config['IMAGES'] = os.path.join(os.getcwd(), 'images')
 app.register_blueprint(api)

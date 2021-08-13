@@ -8,7 +8,6 @@ from flask import (
 from database.sql import *
 import os.path
 import datetime
-
 products = Blueprint('products', __name__, url_prefix='/products')
 
 @products.route('/query', methods=['GET', 'POST'])
@@ -88,7 +87,7 @@ def get_product_image(id):
         image = os.listdir(path)[0]
         return send_from_directory(path, image)
     except Exception as error:
-        return jsonify({'error':str(error, path)}), 400
+        return jsonify({'error':str(error)}), 400
 
 @products.route('/img/<string:id>/<string:name_image>', methods=['GET'])
 def get_product_name_image(id, name_image):

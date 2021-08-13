@@ -3,6 +3,7 @@ INSERT INTO users(
 	,user_email
 	,user_name
 	,user_lastname
+	,user_password
 	,created
 	,updated
 ) VALUES (
@@ -10,6 +11,7 @@ INSERT INTO users(
 	,'juanba@gmail.com'
 	,'Juan'
 	,'Ballesteros'
+	,'hola'
 	,NOW()
 	,NOW()
 )
@@ -18,6 +20,7 @@ INSERT INTO users(
 	,'camilo@gmail.com'
 	,'Camilo'
 	,'Ballesteros'
+	,'hola'
 	,NOW()
 	,NOW()
 );
@@ -54,7 +57,7 @@ INSERT INTO Categories(
 	,NOW()
 	,NOW()
 );
-
+/*
 INSERT INTO Products(
 	product_id
 	,product_name
@@ -171,7 +174,7 @@ INSERT INTO product_image VALUES
 ,('PRODUCTO_3', '1.jpg')
 ,('PRODUCTO_4', '1.jpg')
 ,('PRODUCTO_4', 'zapato2.jpg')
-
+*/
 --SELECT * FROM product_has_category GROUP BY category_id
  --SELECT * FROM products WHERE product_id = 'PRODUCTO_1'
 

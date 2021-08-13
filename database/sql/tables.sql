@@ -13,6 +13,7 @@ CREATE TABLE Users (
 	,user_email VARCHAR(100) UNIQUE NOT NULL
 	,user_name VARCHAR(100) NOT NULL
 	,user_lastname VARCHAR(100)
+	,user_password VARCHAR(100)
 	,user_rol CHAR DEFAULT 'c'
 	,created TIMESTAMP DEFAULT NOW()
 	,updated TIMESTAMP DEFAULT NOW()
