@@ -4,13 +4,13 @@ users
 ,categories
 ,products
 ,product_image
+,client_cart
 ,client_buy_product
 ,product_has_category
 CASCADE;
 
 CREATE TABLE Users (
-	user_id VARCHAR(15) PRIMARY KEY
-	,user_email VARCHAR(100) UNIQUE NOT NULL
+	user_email VARCHAR(100) PRIMARY KEY NOT NULL
 	,user_name VARCHAR(100) NOT NULL
 	,user_lastname VARCHAR(100)
 	,user_password VARCHAR(100)
@@ -21,9 +21,9 @@ CREATE TABLE Users (
 );
 
 CREATE TABLE Clients (
-	client_id VARCHAR(15) UNIQUE NOT NULL
+	client_id VARCHAR(100) UNIQUE NOT NULL
 	,client_address VARCHAR(150)
-	,FOREIGN KEY (client_id) REFERENCES Users(user_id)
+	,FOREIGN KEY (client_id) REFERENCES Users(user_email)
 );
 
 CREATE TABLE Categories (
@@ -49,8 +49,17 @@ CREATE TABLE product_image(
 	,PRIMARY KEY(product_id, product_image)
 );
 
+CREATE TABLE client_cart(
+	client_id VARCHAR(100)
+	,product_id VARCHAR(50)
+	,quantity INTEGER NOT NULL
+	,FOREIGN KEY (product_id) REFERENCES Products(product_id)
+	,FOREIGN KEY (client_id) REFERENCES Clients(client_id)
+	,PRIMARY KEY(client_id, product_id)
+);
+
 CREATE TABLE client_buy_product(
-	client_id VARCHAR(15) NOT NULL
+	client_id VARCHAR(100) NOT NULL
 	,product_id VARCHAR(50) NOT NULL
 	,quantity INTEGER NOT NULL
 	,created TIMESTAMP DEFAULT NOW()

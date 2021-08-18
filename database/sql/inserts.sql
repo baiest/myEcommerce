@@ -1,14 +1,12 @@
 INSERT INTO users(
-	user_id
-	,user_email
+	user_email
 	,user_name
 	,user_lastname
 	,user_password
 	,created
 	,updated
 ) VALUES (
-	'1005944768'
-	,'juanba@gmail.com'
+	'juanba@gmail.com'
 	,'Juan'
 	,'Ballesteros'
 	,'hola'
@@ -16,8 +14,7 @@ INSERT INTO users(
 	,NOW()
 )
 ,(
-	'1005944763'
-	,'camilo@gmail.com'
+	'camilo@gmail.com'
 	,'Camilo'
 	,'Ballesteros'
 	,'hola'
@@ -28,10 +25,10 @@ INSERT INTO users(
 INSERT INTO clients(
 	client_id
 ) VALUES (
-	'1005944768'
+	'juanba@gmail.com'
 )
 , (
-	'1005944763'
+	'camilo@gmail.com'
 );
 INSERT INTO Categories(
 	category_name
@@ -57,7 +54,7 @@ INSERT INTO Categories(
 	,NOW()
 	,NOW()
 );
-/*
+
 INSERT INTO Products(
 	product_id
 	,product_name
@@ -173,8 +170,19 @@ INSERT INTO product_image VALUES
 ,('PRODUCTO_2', '1.jpg')
 ,('PRODUCTO_3', '1.jpg')
 ,('PRODUCTO_4', '1.jpg')
-,('PRODUCTO_4', 'zapato2.jpg')
-*/
+,('PRODUCTO_4', 'zapato2.jpg');
+
+INSERT INTO client_cart VALUES 
+('juanba@gmail.com'
+,'PRODUCTO_1'
+,1)
+,('juanba@gmail.com'
+,'PRODUCTO_2'
+,1)
+,('juanba@gmail.com'
+,'PRODUCTO_3'
+,1)
+
 --SELECT * FROM product_has_category GROUP BY category_id
  --SELECT * FROM products WHERE product_id = 'PRODUCTO_1'
 
